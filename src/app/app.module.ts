@@ -11,6 +11,8 @@ import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import {DataApiService} from './core/services/data-api.service';
+import {UserWService} from './core/services/user-w.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -25,6 +27,8 @@ import { AppComponent } from './app.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    DataApiService,
+    UserWService,
 
     // provider used to create fake backend
     FakeBackendProvider

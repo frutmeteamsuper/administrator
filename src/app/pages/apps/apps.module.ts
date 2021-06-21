@@ -13,9 +13,10 @@ import { TasksModule } from './tasks/tasks.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { CalendarComponent } from './calendar/calendar.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
-    declarations: [CalendarComponent],
+    declarations: [CalendarComponent,ProjectsComponent],
     imports: [
         CommonModule,
         FormsModule,
