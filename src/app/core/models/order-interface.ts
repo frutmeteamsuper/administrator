@@ -1,9 +1,13 @@
 export interface OrderInterface {
 	car?:Array<string>;	
+	className?:string;
+	tittle?:string;
+	start?:string;
+	date?:string;
 	currency?:string;
 	email?:string;
 	direccion?:string;
-	id?:string;
+	id?:number;
 	metodo?:string;
 	personaContacto?:string;
 	status?:string;

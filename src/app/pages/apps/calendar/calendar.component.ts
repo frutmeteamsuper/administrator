@@ -11,7 +11,10 @@ import { EventInput } from '@fullcalendar/core';
 
 import { Event } from './event.model';
 
+import { OrderInterface } from '../../../core/models/order-interface'; 
 import { category, calendarEvents } from './data';
+import { UserWService } from "../../../core/services/user-w.service";
+import { DataApiService } from '../../../core/services/data-api.service';
 
 @Component({
   selector: 'app-calendar',
@@ -53,9 +56,12 @@ export class CalendarComponent implements OnInit {
   // show events
   calendarEvents: EventInput[];
 
-  constructor(private modalService: NgbModal, private formBuilder: FormBuilder) { }
+  constructor(private modalService: NgbModal,  public _uw:UserWService, 
+    private dataApiService: DataApiService, private formBuilder: FormBuilder) { }
+
 
   ngOnInit() {
+//  this.getTamano();
     this.breadCrumbItems = [{ label: 'Shreyu', path: '/' }, { label: 'Apps', path: '/' }, { label: 'Calendar', active: true }];
 
     this.formCreateEvent = this.formBuilder.group({
@@ -74,7 +80,19 @@ export class CalendarComponent implements OnInit {
      * Fetches Data
      */
     this._fetchData();
-  }
+//     this.getTamano();
+ //        this.orderProccess();
+//     this.calendarEvents = this.ordersFinal;
+   for (let i = 0; i <  this._uw.totalOrders ; i++){
+  //      console.log("fecha: "+this._uw.ordersA[i].date);
+          this.calendarEvents = this.calendarEvents.concat({
+          id: this.calendarEvents.length + 1,
+          title: this._uw.ordersA[i].serviceDescription,
+          start: this._uw.ordersA[i].date,
+          className: 'bg-primary text-white'
+        });
+      }
+    }
 
   /**
    * Returns the form
@@ -181,7 +199,8 @@ export class CalendarComponent implements OnInit {
     // Event category
     this.category = category;
     // Calender Event Data
-    this.calendarEvents = calendarEvents;
+   this.calendarEvents = calendarEvents;
+ //   this.calendarEvents = this.ordersFinal;
 
     // form submit
     this.submitted = false;

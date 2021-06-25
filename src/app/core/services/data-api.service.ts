@@ -14,7 +14,7 @@ import { UserWService } from "./user-w.service";
 })
 export class DataApiService {
 	// info: Observable<any>;
-	// tixs: Observable<any>;
+	 orders: Observable<any>;
 	// tix: Observable<any>;
 	// sale: Observable<any>;
 	order: Observable<any>;
@@ -37,10 +37,14 @@ export class DataApiService {
 	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][status]=activated';
 	// 	return this.http.get(url_api);
 	// }
- // 		getTamano(){
-	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][status]=activated';
-	// 	return (this.tixs = this.http.get(url_api));
-	// }
+ 		getTamano(){
+	 	const url_api = 'https://db.penguinscleaning.ca:3022/api/order?filter[where][orderType]=appointment';
+	 	return (this.orders = this.http.get(url_api));
+	 }
+	getAllQuotes(){
+		const url_api = 'https://db.penguinscleaning.ca:3022/api/order?filter[where][orderType]=appointment';
+		return this.http.get(url_api);
+	}
 	// getTamanoIni(){
 	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][initload]=activated';
 	// 	return (this.tixs = this.http.get(url_api));
@@ -74,7 +78,6 @@ export class DataApiService {
 // 		.post(url_api, book)
 // 		.pipe(map(data => data));
 // 	}
-	
 	updateOrder(order :OrderInterface, id: string){
 		// let token = this.authService.getToken();
 		const url_api=`https://db.buckapi.com:3025/api/order/${id}`;

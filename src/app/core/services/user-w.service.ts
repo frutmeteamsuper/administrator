@@ -37,6 +37,7 @@ export class UserWService {
 	idCard:string;
 	imagePreviewProduct:string;
 	images:any[]=[];
+	ordersA:any[]=[];
 	info:any={};
 	isLogged:boolean=false;
 	loaded:boolean=false;
@@ -66,6 +67,7 @@ export class UserWService {
 	totalNew:number=0;
 	totalProducts:number=0;
 	totalTixs:number;
+	totalOrders:number;
 	type:string;
 	typeGlobal:boolean=false;
 	typeSize:boolean=false;
