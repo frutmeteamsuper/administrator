@@ -1,33 +1,80 @@
 <div class="container-fluid">
-   <!--  <app-page-title title="File Upload" [breadcrumbItems]="breadCrumbItems"></app-page-title> -->
+    <app-page-title title="New project" [breadcrumbItems]="breadCrumbItems"></app-page-title>
 
     <div class="row">
         <div class="col-12">
-              
+           
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title mt-0 mb-1">Dropzone File Upload</h4>
+                    <h4 class="header-title mt-0 mb-1">Project's images</h4>
                     <p class="text-muted font-13 m-b-30">
-                        DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.
+                        Drag and drop the project's images.
                     </p>
-                   <ngx-file-picker
-                                    [uploadType]="'multi'"
-                                    (validationError)= "onValidationError($event)"
-                                    [adapter]="adapter"
-                                    [fileExtensions]="['pdf', 'jpeg','jpg', 'png', 'PNG', 'mp4', 'css', 'docx', 'txt']"
-                                    (uploadSuccess)="onUploadSuccess($event)"
-                                    (removeSuccess)="onRemoveSuccess($event)"
-                                    [showeDragDropZone]="true"
-                                    [showPreviewContainer]="true"
-                                    [accept]="'image/*'"
-                                    (fileAdded)="onFileAdded($event)">
-                                </ngx-file-picker> 
+                     <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
+            <div class="form-group">
+            <ngx-file-picker
+                [uploadType]="'multi'"
+                (validationError)= "onValidationError($event)"
+                [adapter]="adapter"
+                [fileExtensions]="['pdf', 'jpeg','jpg', 'png', 'PNG', 'mp4', 'css', 'docx', 'txt']"
+                (uploadSuccess)="onUploadSuccess($event)"
+                (removeSuccess)="onRemoveSuccess($event)"
+                [showeDragDropZone]="true"
+                [showPreviewContainer]="true"
+                [accept]="'image/*'"
+                (fileAdded)="onFileAdded($event)">
+            </ngx-file-picker> 
+
+
+
+              <label>Tittle</label>
+              <input type="text" class="form-control" formControlName="text"
+                [ngClass]="{'is-invalid': typesubmit && type.text.errors}" placeholder="The project tittle" />
+              <div *ngIf="typesubmit && type.text.errors" class="invalid-feedback">
+                <span *ngIf="type.text.errors.required">This value is required.</span>
+              </div>
+            </div>
+           
+            <div class="form-group">
+              <label>Category</label>
+              <div>
+                <input formControlName="alphanum" type="text" class="form-control"
+                  [ngClass]="{'is-invalid': typesubmit && type.alphanum.errors}"
+                  placeholder="Enter the project category" />
+                <div *ngIf="typesubmit && type.alphanum.errors" class="invalid-feedback">
+                  <span *ngIf="type.alphanum.errors.required">This value is required.</span>
+                  <span *ngIf="type.alphanum.errors.pattern">This value should be alphanumeric.</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <div>
+                <textarea formControlName="textarea" class="form-control" rows="5"
+                  [ngClass]="{'is-invalid': typesubmit && type.textarea.errors}"></textarea>
+                <div *ngIf="typesubmit && type.textarea.errors" class="invalid-feedback">
+                  <span *ngIf="type.textarea.errors.required">This value is required.</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group mb-0">
+              <div>
+                <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
+                  Submit
+                </button>
+                <button type="reset" class="btn btn-secondary waves-effect">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </form>
+                   
                 
                     
                     
-                    <div class="clearfix text-right mt-3">
+                    <!-- <div class="clearfix text-right mt-3">
                         <button type="button" class="btn btn-danger"> <i class="uil uil-arrow-right mr-1"></i> Submit</button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

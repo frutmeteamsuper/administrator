@@ -29,7 +29,7 @@ import { NewprojectComponent } from './newproject/newproject.component';
         EmailModule,
         ProjectModule,
         TasksModule,
-            FilePickerModule,
+        FilePickerModule,
     ],
      schemas: [
     CUSTOM_ELEMENTS_SCHEMA

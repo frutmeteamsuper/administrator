@@ -11,7 +11,7 @@ import { DemoFilePickerAdapter } from  '../../../core/file-picker.adapter';
 import { FilePickerComponent } from '../../../../assets/file-picker/src/lib/file-picker.component';
 import { FilePreviewModel } from '../../../../assets/file-picker/src/lib/file-preview.model';
 import { ValidationError } from '../../../../assets/file-picker/src/lib/validation-error.model';
-
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'newproject',
@@ -19,12 +19,17 @@ import { ValidationError } from '../../../../assets/file-picker/src/lib/validati
   styleUrls: ['./newproject.component.scss']
 })
 export class NewprojectComponent implements OnInit {
+  breadCrumbItems: Array<{}>;
+
+  typeValidationForm: FormGroup; // type validation form
+    submit: boolean;
+      typesubmit: boolean;
  adapter = new DemoFilePickerAdapter(this.http,this._uw);
   @ViewChild('uploader', { static: true }) uploader: FilePickerComponent;
    myFiles: FilePreviewModel[] = [];
 
   constructor(    
-
+public formBuilder: FormBuilder,
     private http: HttpClient,
     public _uw:UserWService, 
     private dataApiService: DataApiService
@@ -47,13 +52,27 @@ export class NewprojectComponent implements OnInit {
 
 
 
+ get type() {
+    return this.typeValidationForm.controls;
+  }
 
+  /**
+   * Type validation form submit data
+   */
+  typeSubmit() {
+    this.typesubmit = true;
+  }
 
 
 
 
   ngOnInit() {
-
+  this.breadCrumbItems = [ { label: 'Projects', path: '/projects' }, { label: 'New project', path: '/', active: true }];
+      this.typeValidationForm = this.formBuilder.group({
+      text: ['', [Validators.required]],
+      alphanum: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
+      textarea: ['', [Validators.required]]
+        });
      // this.ngFormSendPago = this.formBuilder.group({
      // npedido: ["",[Validators.required]]
     //  });
