@@ -87,7 +87,7 @@ export class CalendarComponent implements OnInit {
   //      console.log("fecha: "+this._uw.ordersA[i].date);
           this.calendarEvents = this.calendarEvents.concat({
           id: this.calendarEvents.length + 1,
-          title: this._uw.ordersA[i].serviceDescription,
+          title: 'H.C ('+this._uw.ordersA[i].houseSize+')',
           start: this._uw.ordersA[i].date,
           className: 'bg-primary text-white'
         });

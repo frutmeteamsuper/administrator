@@ -27,7 +27,7 @@ export const MENU: MenuItem[] = [
         label: 'Projects',
         icon: 'calendar',
         link: '/projects',
-    },
+    },    
     // {
     //     label: 'Email',
     //     icon: 'inbox',

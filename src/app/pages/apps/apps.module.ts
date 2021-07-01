@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { FilePickerModule } from  '../../../assets/file-picker/src/public_api';
 import { UIModule } from '../../shared/ui/ui.module';
 import { AppsRoutingModule } from './apps-routing.module';
 
@@ -14,9 +14,10 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { NewprojectComponent } from './newproject/newproject.component';
 
 @NgModule({
-    declarations: [CalendarComponent,ProjectsComponent],
+    declarations: [CalendarComponent,ProjectsComponent,NewprojectComponent],
     imports: [
         CommonModule,
         FormsModule,
@@ -28,7 +29,11 @@ import { ProjectsComponent } from './projects/projects.component';
         EmailModule,
         ProjectModule,
         TasksModule,
-    ]
+            FilePickerModule,
+    ],
+     schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ]
 })
 
 export class AppsModule { }

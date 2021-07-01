@@ -3,11 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { NewprojectComponent } from './newproject/newproject.component';
 
 const routes: Routes = [
     {
         path: 'apps-calendar',
         component: CalendarComponent
+    },
+    {
+        path: 'newproject',
+        component: NewprojectComponent
     },
     {
         path: 'projects',
