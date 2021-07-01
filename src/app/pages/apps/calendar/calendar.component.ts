@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
 //  this.getTamano();
-    this.breadCrumbItems = [{ label: 'Shreyu', path: '/' }, { label: 'Apps', path: '/' }, { label: 'Calendar', active: true }];
+    this.breadCrumbItems = [{ label: 'Appointments', active: true }];
 
     this.formCreateEvent = this.formBuilder.group({
       name: ['', [Validators.required]],

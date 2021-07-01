@@ -21,7 +21,7 @@ export class ProjectsComponent implements OnInit {
   ordersData: OrdersTable[];
 
   ngOnInit() {
-    this.breadCrumbItems = [{ label: 'Shreyu', path: '/' }, { label: 'Apps', path: '/' }, { label: 'Calendar', active: true }];
+    this.breadCrumbItems = [{ label: 'Projects', active: true }];
 
     /**
      * Fetches the data
