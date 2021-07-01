@@ -64,7 +64,7 @@
         </div>
       </li>
  -->
-      <li class="dropdown notification-list" placement="left" ngbTooltip="8 new unread notifications" ngbDropdown>
+      <li class="dropdown notification-list" placement="left" ngbTooltip="0 notifications" ngbDropdown>
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript: void(0);" role="button">
           <i [attr.data-feather]="'bell'" appFeatherIcon></i>
           <span class="noti-icon-badge"></span>
@@ -75,16 +75,16 @@
           <div class="dropdown-item noti-title border-bottom" ngbDropdownItem>
             <h5 class="m-0 font-size-16">
               <span class="float-right">
-                <a href="javascript: void(0);" class="text-dark">
+              <!--   <a href="javascript: void(0);" class="text-dark">
                   <small>Clear All</small>
-                </a>
-              </span>Notification
+                </a> -->
+              </span>0 Notification
             </h5>
           </div>
 
-          <div class="slimscroll noti-scroll" appSlimScroll>
+  <!--         <div class="slimscroll noti-scroll" appSlimScroll>
 
-            <!-- items-->
+           
             <a href="javascript:void(0);" *ngFor="let item of notificationItems"
               class="dropdown-item notify-item border-bottom" ngbDropdownItem>
               <div class="notify-icon bg-{{ item.color }}" *ngIf="item.icon"><i class="{{ item.icon }}"></i></div>
@@ -95,14 +95,14 @@
               </p>
             </a>
 
-          </div>
+          </div> -->
 
           <!-- All-->
-          <a href="javascript:void(0);"
+         <!--  <a href="javascript:void(0);"
             class="dropdown-item text-center text-primary notify-item notify-all border-top">
             View all
             <i class="fi-arrow-right"></i>
-          </a>
+          </a> -->
 
         </div>
       </li>
