@@ -1,30 +1,45 @@
 const category = [
+  
     {
-        name: 'Danger',
-        value: 'bg-danger'
-    },
-    {
-        name: 'Success',
-        value: 'bg-success'
-    },
-    {
-        name: 'Primary',
+        name: 'HC (Basic)',
         value: 'bg-primary'
     },
     {
-        name: 'Info',
-        value: 'bg-info'
+        name: 'HC (Medium)',
+        value: 'bg-primary'
+    },    
+    {
+        name: 'HC (Premium)',
+        value: 'bg-primary'
+    },
+
+];
+
+const service = [
+  
+    {
+        name: 'HC (Basic)',
+        address: '',
+        value: 'bg-primary'
     },
     {
-        name: 'Dark',
-        value: 'bg-dark'
+        name: 'HC (Medium)',
+         address: '',
+        value: 'bg-primary'
+    },    
+    {
+        name: 'HC (Premium)',
+         address: '',
+        value: 'bg-primary'
     },
     {
-        name: 'Warning',
-        value: 'bg-warning'
+        name: 'Events (post)',
+         address: '',
+        value: 'bg-success'
     },
+
 ];
 
 const calendarEvents = [
 ];
-export { category, calendarEvents };
+export { category, service, calendarEvents };

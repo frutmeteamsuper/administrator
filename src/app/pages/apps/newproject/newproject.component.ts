@@ -4,7 +4,8 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 
 import { UserWService } from '../../../core/services/user-w.service';
 import { DataApiService } from '../../../core/services/data-api.service';
-
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { HttpClient } from  '@angular/common/http';
 import { DemoFilePickerAdapter } from  '../../../core/file-picker.adapter';
@@ -12,7 +13,7 @@ import { FilePickerComponent } from '../../../../assets/file-picker/src/lib/file
 import { FilePreviewModel } from '../../../../assets/file-picker/src/lib/file-preview.model';
 import { ValidationError } from '../../../../assets/file-picker/src/lib/validation-error.model';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
+import { TixInterface } from '../../../core/models/tix-interface';  
 @Component({
   selector: 'newproject',
   templateUrl: './newproject.component.html',
@@ -32,17 +33,38 @@ export class NewprojectComponent implements OnInit {
 public formBuilder: FormBuilder,
     private http: HttpClient,
     public _uw:UserWService, 
+   public location: Location,
+    public router: Router,
     private dataApiService: DataApiService
 
 
   	) { }
    public isError = false;
-
+    public tixs:TixInterface;
+    public tix:TixInterface;
   public pagoImage:any[]=[];
   public images:any[]=[];
 
   
-
+  sendTix(){
+      this.typesubmit = true;
+      if (this.typeValidationForm.invalid) {
+         this._uw.errorFormAddtixs=true;
+      return;
+        } 
+      this._uw.errorFormAddtixs=false;
+      // this.user = this.authService.getCurrentUser();
+      // let val=(this.user.id).toString();
+      this.tix = this.typeValidationForm.value;
+      // this.tix.userd="a"+val;
+      this.tix.status="activated";
+      this.tix.images=this._uw.images;
+      return this.dataApiService.saveTixFree(this.tix)
+        .subscribe(
+             tix => this.router.navigate(['/projects'])
+        );
+  }    
+    
     
   public okPago(){
    // let id = this._uw.order.id;
@@ -66,12 +88,12 @@ public formBuilder: FormBuilder,
 
 
 
-  ngOnInit() {
+  ngOnInit() {this._uw.images=[];
   this.breadCrumbItems = [ { label: 'Projects', path: '/projects' }, { label: 'New project', path: '/', active: true }];
       this.typeValidationForm = this.formBuilder.group({
-      text: ['', [Validators.required]],
-      alphanum: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9]+')]],
-      textarea: ['', [Validators.required]]
+      tittle: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      description: ['', [Validators.required]]
         });
      // this.ngFormSendPago = this.formBuilder.group({
      // npedido: ["",[Validators.required]]

@@ -10,9 +10,7 @@
                     <p class="text-muted font-13 m-b-30">
                         Drag and drop the project's images.
                     </p>
-                     <form (ngSubmit)="typeSubmit()" [formGroup]="typeValidationForm">
-            <div class="form-group">
-            <ngx-file-picker
+                     <ngx-file-picker
                 [uploadType]="'multi'"
                 (validationError)= "onValidationError($event)"
                 [adapter]="adapter"
@@ -24,36 +22,39 @@
                 [accept]="'image/*'"
                 (fileAdded)="onFileAdded($event)">
             </ngx-file-picker> 
+                     <form (ngSubmit)="sendTix()" [formGroup]="typeValidationForm">
+            <div class="form-group">
+           
 
 
 
               <label>Tittle</label>
-              <input type="text" class="form-control" formControlName="text"
-                [ngClass]="{'is-invalid': typesubmit && type.text.errors}" placeholder="The project tittle" />
-              <div *ngIf="typesubmit && type.text.errors" class="invalid-feedback">
-                <span *ngIf="type.text.errors.required">This value is required.</span>
+              <input type="text" class="form-control" formControlName="tittle"
+                [ngClass]="{'is-invalid': typesubmit && type.tittle.errors}" placeholder="The project tittle" />
+              <div *ngIf="typesubmit && type.tittle.errors" class="invalid-feedback">
+                <span *ngIf="type.tittle.errors.required">This value is required.</span>
               </div>
             </div>
            
             <div class="form-group">
               <label>Category</label>
               <div>
-                <input formControlName="alphanum" type="text" class="form-control"
-                  [ngClass]="{'is-invalid': typesubmit && type.alphanum.errors}"
+                <input formControlName="category" type="text" class="form-control"
+                  [ngClass]="{'is-invalid': typesubmit && type.category.errors}"
                   placeholder="Enter the project category" />
-                <div *ngIf="typesubmit && type.alphanum.errors" class="invalid-feedback">
-                  <span *ngIf="type.alphanum.errors.required">This value is required.</span>
-                  <span *ngIf="type.alphanum.errors.pattern">This value should be alphanumeric.</span>
+                <div *ngIf="typesubmit && type.category.errors" class="invalid-feedback">
+                  <span *ngIf="type.category.errors.required">This value is required.</span>
+                  <span *ngIf="type.category.errors.pattern">This value should be alphanumeric.</span>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label>Description</label>
               <div>
-                <textarea formControlName="textarea" class="form-control" rows="5"
-                  [ngClass]="{'is-invalid': typesubmit && type.textarea.errors}"></textarea>
-                <div *ngIf="typesubmit && type.textarea.errors" class="invalid-feedback">
-                  <span *ngIf="type.textarea.errors.required">This value is required.</span>
+                <textarea formControlName="description" class="form-control" rows="5"
+                  [ngClass]="{'is-invalid': typesubmit && type.description.errors}"></textarea>
+                <div *ngIf="typesubmit && type.description.errors" class="invalid-feedback">
+                  <span *ngIf="type.description.errors.required">This value is required.</span>
                 </div>
               </div>
             </div>

@@ -3,7 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { revenueAreaChart, targetsBarChart, salesDonutChart, ordersData } from './data';
 
 import { ChartType, OrdersTable } from './projects.model';
-
+import { DataApiService } from '../../../core/services/data-api.service';
+import { TixInterface } from '../../../core/models/tix-interface'; 
+import { UserWService } from "../../../core/services/user-w.service";
+import { ActivatedRoute, Params} from '@angular/router';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'projects',
   templateUrl: './projects.component.html',
@@ -12,15 +17,31 @@ import { ChartType, OrdersTable } from './projects.model';
 
 
 export class ProjectsComponent implements OnInit {
+    public tix:TixInterface;
+    public tixs:TixInterface;
   breadCrumbItems: Array<{}>;
-  constructor() { }
+  constructor(  private dataApi: DataApiService,
+    public _uw:UserWService,
+    private location: Location,
+        private route:ActivatedRoute,
+    private router: Router) { }
 
   revenueAreaChart: ChartType;
   targetsBarChart: ChartType;
   salesDonutChart: ChartType;
   ordersData: OrdersTable[];
+  getAllTixs(){
+        this.dataApi.getAllTixsReturn().subscribe((res:any) => {
+      if (res[0] === undefined){
+        console.log("hey");
+       }else{
+        this.tixs=res;            
+        }
+     });  
+    }
 
   ngOnInit() {
+         this.getAllTixs();
     this.breadCrumbItems = [{ label: 'Projects', active: true }];
 
     /**

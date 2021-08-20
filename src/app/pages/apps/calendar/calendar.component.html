@@ -52,8 +52,10 @@
                 list: 'List',
                 prev: 'Prev',
                 next: 'Next'}" deepChangeDetection="true" [events]="calendarEvents"
-              (dateClick)="openModal(newEventModal, $event)" droppable="true"
-              (eventClick)="openEditModal(editEventModal, $event)">
+              (dateClick)="openModal(newEventModal, $event)" droppable="false"
+              (eventClick)="openEditModal(editEventModal, $event)"
+  (eventRender)="onEventRender($event)">
+              >
             </full-calendar>
           </div>
         </div>
@@ -68,19 +70,30 @@
         <button type="button" class="close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
       </div>
       <div class="modal-body p-3">
-        <form (ngSubmit)="createNewEvent()" [formGroup]="formCreateEvent">
+      <form (ngSubmit)="createNewEvent()" [formGroup]="formCreateEvent">
           <div class="row">
             <div class="col-12">
               <div class="form-group">
-                <label class="control-label">Event Name</label>
-                <input class="form-control" placeholder="Insert Event Name" type="text" name="name" formControlName="name"
-                  [ngClass]="{'is-invalid': submitted && createForm.name.errors}" required>
-                <div *ngIf="submitted && createForm.name.errors" class="invalid-feedback">
-                  <span *ngIf="createForm.name.errors.required">This value is required.</span>
+                <label class="control-label">description</label>
+                <input class="form-control" placeholder="Insert Event description" type="text" name="title" formControlName="title"
+                  [ngClass]="{'is-invalid': submitted && createForm.title.errors}" required>
+                <div *ngIf="submitted && createForm.title.errors" class="invalid-feedback">
+                  <span *ngIf="createForm.title.errors.required">This value is required.</span>
                 </div>
               </div>
             </div>
-            <div class="col-12">
+             <div class="col-12">
+              <div class="form-group"><label class="control-label">Service</label><select class="form-control"
+                  name="service" formControlName="service" [ngClass]="{'is-invalid': submitted && createForm.service.errors }" required>
+                  <option *ngFor="let option of services;let i = index" value="{{ i }}"> {{ option.name }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && createForm.service.errors" class="invalid-feedback">
+                  <div *ngIf="createForm.service.errors.required">This value is required</div>
+                </div>
+              </div>
+            </div>
+      <!--       <div class="col-12">
               <div class="form-group"><label class="control-label">Category</label><select class="form-control"
                   name="category" formControlName="category" [ngClass]="{'is-invalid': submitted && createForm.category.errors }" required>
                   <option *ngFor="let option of category" value="{{ option.value }}"> {{ option.name }}
@@ -90,7 +103,7 @@
                   <div *ngIf="createForm.category.errors.required">This value is required</div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
     
           <div class="text-right pt-4">
@@ -110,16 +123,36 @@
   <div class="modal-body p-3">
     <form [formGroup]="formEditEvent" (ngSubmit)="editEventSave()">
       <label>Change event name</label>
-      <div class="input-group m-b-15">
-        <input class="form-control" placeholder="Insert Event Name" type="text" name="name" formControlName="editTitle"
+      <!-- <div class="input-group m-b-15">
+        <input class="form-control" placeholder="Insert Event Name" type="text" name="editTitle" formControlName="editTitle"
           [ngClass]="{'is-invalid': submitted && editForm.editTitle.errors}" required>
         <div *ngIf="submitted && editForm.editTitle.errors" class="invalid-feedback">
           <span *ngIf="editForm.editTitle.errors.required">This value is required.</span>
         </div>
+      </div> -->
+       <div class="input-group m-b-15">
+        <input class="form-control" placeholder="{{description}}" type="text" name="description" formControlName="description" ngModel="{{description}}"
+          [ngClass]="{'is-invalid': submitted && editForm.description.errors}" required>
+        <div *ngIf="submitted && editForm.description.errors" class="invalid-feedback">
+          <span *ngIf="editForm.description.errors.required">This value is required.</span>
+        </div>
+      </div>
+
+       <div class="col-12">
+              <div class="form-group"><label class="control-label">Service</label><select class="form-control"
+                  name="editTitle" formControlName="editTitle" [ngClass]="{'is-invalid': submitted && editForm.editTitle.errors }" required>
+                  <option *ngFor="let option of services;let i = index" value="{{ i }}"> {{ option.name }}
+                  </option>
+                </select>
+                <div *ngIf="submitted && editForm.editTitle.errors" class="invalid-feedback">
+                  <div *ngIf="editForm.editTitle.errors.required">This value is required</div>
+                </div>
+              </div>
+
+</div>
         <span class="input-group-append"><button type="submit" class="btn btn-success btn-md">
             <i class="fa fa-check"></i>
             Save</button></span>
-      </div>
     </form>
   </div>
   <div class="text-right p-3">

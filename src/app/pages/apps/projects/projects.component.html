@@ -59,16 +59,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let table of ordersData">
+                <tr *ngFor="let tix of tixs" >
                   <!-- <td>{{ table.id }}</td> -->
-                  <td>{{ table.product }}</td>
+                  <td>{{ tix.tittle }}</td>
                  <!--  <td>{{ table.name }}</td>
                   <td>{{ table.price }}</td> -->
-                  <td><span class="badge py-1" [ngClass]="{
-                                        'badge-soft-warning': table.status === 'Pending',
-                                        'badge-soft-success': table.status === 'Delivered',  
-                                        'badge-soft-danger': table.status === 'Declined'  
-                                    }">{{ table.status }}</span></td>
+                  <td><span class="badge py-1" [ngClass]="badge-soft-warning"></span></td>
                 </tr>
 
               </tbody>

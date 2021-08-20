@@ -12,10 +12,10 @@ import { EventInput } from '@fullcalendar/core';
 import { Event } from './event.model';
 
 import { OrderInterface } from '../../../core/models/order-interface'; 
-import { category, calendarEvents } from './data';
+import { category, service, calendarEvents } from './data';
 import { UserWService } from "../../../core/services/user-w.service";
 import { DataApiService } from '../../../core/services/data-api.service';
-
+import Tooltip from 'tooltip.js'; 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -40,6 +40,7 @@ export class CalendarComponent implements OnInit {
 
   // Form category data
   category: Event[];
+  services: Event[];
 
   // Date added in event
   newEventDate: Date;
@@ -65,8 +66,8 @@ export class CalendarComponent implements OnInit {
     this.breadCrumbItems = [{ label: 'Appointments', active: true }];
 
     this.formCreateEvent = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      category: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      service: ['', [Validators.required]],
     });
 
     /**
@@ -119,19 +120,27 @@ export class CalendarComponent implements OnInit {
     }
 
     if (this.formCreateEvent.valid) {
-      const title = this.formCreateEvent.get('name').value;
-      // tslint:disable-next-line: no-shadowed-variable
-      const category = this.formCreateEvent.get('category').value;
+      let indice = this.formCreateEvent.get('service').value;
 
+      const description = this.formCreateEvent.get('title').value;
+      
+      // tslint:disable-next-line: no-shadowed-variable
+      //const category = this.formCreateEvent.get('category').value;
+      // const category = option.value;
+      const title=this.services[indice].name;
+      const category=this.services[indice].value;
+            console.log(''+category);
+            let veri=this.calendarEvents.length + 1;
       this.calendarEvents = this.calendarEvents.concat({
         id: this.calendarEvents.length + 1,
         title,
+        description:description,
         className: category,
         start: this.newEventDate || new Date()
       });
       this.formCreateEvent = this.formBuilder.group({
-        name: '',
-        category: ''
+        title: '',
+        service: ''
       });
       this.modalService.dismissAll();
     }
@@ -155,9 +164,11 @@ export class CalendarComponent implements OnInit {
   openEditModal(editcontent: any, event: any) {
     this.formEditEvent = this.formBuilder.group({
       editTitle: event.event.title,
+      description:event.event.description,
     });
     // tslint:disable-next-line: max-line-length
-    this.editEvent = { id: event.event.id, title: event.event.title, start: event.event.start, classNames: event.event.classNames };
+    this.editEvent = { id: event.event.id, editTitle: event.event.className, start: event.event.start, className: event.event.className , description:event.event.description};
+   console.log(''+ this.editEvent);
     this.modalService.open(editcontent);
   }
 
@@ -170,13 +181,24 @@ export class CalendarComponent implements OnInit {
     if (this.formEditEvent.invalid) {
       return;
     }
+       let indice = this.formEditEvent.get('editTitle').value;
 
-    const editTitle = this.formEditEvent.get('editTitle').value;
+      // const description = this.formCreateEvent.get('title').value;
+      
+      // tslint:disable-next-line: no-shadowed-variable
+      //const category = this.formCreateEvent.get('category').value;
+      // const category = option.value;
+      const editTitle=this.services[indice].name;
+      const category=this.services[indice].value;
+            console.log(''+category);
+const description = this.formEditEvent.get('description').value;
+    // const editTitle = this.formEditEvent.get('editTitle').value;
     const editId = this.calendarEvents.findIndex(x => x.id + '' === this.editEvent.id + '');
     // tslint:disable-next-line: radix
-    this.calendarEvents[editId] = { ...this.editEvent, title: editTitle, id: parseInt(this.editEvent.id + ''), className: '' };
+    this.calendarEvents[editId] = { ...this.editEvent, title: editTitle, id: parseInt(this.editEvent.id + ''), className: category, description:description };
     this.formEditEvent = this.formBuilder.group({
       editTitle: '',
+      description:'',
     });
     this.modalService.dismissAll();
   }
@@ -191,13 +213,22 @@ export class CalendarComponent implements OnInit {
     delete this.calendarEvents[deleteEvent].id;
     this.modalService.dismissAll();
   }
-
+  onEventRender(info: any) { 
+    console.log('onEventRender', info.el); 
+    const tooltip = new Tooltip(info.el, { 
+      title: info.event.title, 
+      placement: 'top-end', 
+      trigger: 'hover', 
+      container: 'body' 
+    }); 
+  } 
   /**
    * Fetches the required data
    */
   private _fetchData() {
     // Event category
-    this.category = category;
+         this.services= service;
+    //this.category = category;
     // Calender Event Data
    this.calendarEvents = calendarEvents;
  //   this.calendarEvents = this.ordersFinal;

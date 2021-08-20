@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders }  from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 
-// import { TixInterface } from '../models/tix-interface';
+ import { TixInterface } from '../models/tix-interface';
 // import { SaleInterface } from '../models/sale-interface';
 import { OrderInterface } from '../models/order-interface';
 // import { InfoInterface } from '../models/info-interface';
@@ -15,7 +15,8 @@ import { UserWService } from "./user-w.service";
 export class DataApiService {
 	// info: Observable<any>;
 	 orders: Observable<any>;
-	// tix: Observable<any>;
+	 tix: Observable<any>;
+	 tixs: Observable<any>;
 	// sale: Observable<any>;
 	order: Observable<any>;
   constructor(
@@ -32,11 +33,11 @@ export class DataApiService {
 	// 	return this.http
 	// 	.put<TixInterface>(url_api, tix)
 	// 	.pipe(map(data => data));
-	// }
-	// getAllTixs(){
-	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][status]=activated';
-	// 	return this.http.get(url_api);
-	// }
+//}
+	getAllTixs(){
+		const url_api = 'hhttps://db.penguinscleaning.ca:3022/api/tixes?filter[where][status]=activated';
+		return this.http.get(url_api);
+	}
  		getTamano(){
 	 	const url_api = 'https://db.penguinscleaning.ca:3022/api/order?filter[where][orderType]=appointment';
 	 	return (this.orders = this.http.get(url_api));
@@ -45,11 +46,21 @@ export class DataApiService {
 		const url_api = 'https://db.penguinscleaning.ca:3022/api/order?filter[where][orderType]=appointment';
 		return this.http.get(url_api);
 	}
+		saveTixFree(tix :TixInterface){
+	//	let token = this.authService.getToken();
+		const url_api='https://db.penguinscleaning.ca:3022/api/tixes';
+		return this.http
+		.post<TixInterface>(url_api, tix)
+		.pipe(map(data => data));
+	}
 	// getTamanoIni(){
 	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][initload]=activated';
 	// 	return (this.tixs = this.http.get(url_api));
 	// }
- 	
+ 		getAllTixsReturn(){
+		const url_api = 'https://db.penguinscleaning.ca:3022/api/tixes?filter[where][status]=activated';
+		return (this.tixs = this.http.get(url_api));
+	}
 
 	// getAllTixsInitload(){
 	// 	const url_api = 'https://db.buckapi.com:3025/api/tixes?filter[where][initload]=activated';
